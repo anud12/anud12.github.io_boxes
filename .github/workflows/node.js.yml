@@ -31,8 +31,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-      working-directory: ./service
+      working-directory: service
     - run: npm run build --if-present
-      working-directory: ./service
+      working-directory: service
     - run: npm start
-      working-directory: ./service
+      working-directory: service
