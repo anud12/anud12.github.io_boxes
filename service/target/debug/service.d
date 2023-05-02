@@ -1,1 +1,0 @@
-/workspaces/anud12.github.io_boxes/service/target/debug/service: /workspaces/anud12.github.io_boxes/service/src/api/mod.rs /workspaces/anud12.github.io_boxes/service/src/api/session.rs /workspaces/anud12.github.io_boxes/service/src/login.rs /workspaces/anud12.github.io_boxes/service/src/main.rs /workspaces/anud12.github.io_boxes/service/src/service_account.json
