@@ -1,0 +1,14 @@
+/workspaces/anud12.github.io_boxes/service/target/debug/deps/jwt-1f492882a0477cf4.rmeta: /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/lib.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/algorithm/mod.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/algorithm/rust_crypto.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/algorithm/store.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/claims.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/error.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/header.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/token/mod.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/token/signed.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/token/verified.rs
+
+/workspaces/anud12.github.io_boxes/service/target/debug/deps/jwt-1f492882a0477cf4.d: /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/lib.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/algorithm/mod.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/algorithm/rust_crypto.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/algorithm/store.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/claims.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/error.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/header.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/token/mod.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/token/signed.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/token/verified.rs
+
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/lib.rs:
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/algorithm/mod.rs:
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/algorithm/rust_crypto.rs:
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/algorithm/store.rs:
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/claims.rs:
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/error.rs:
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/header.rs:
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/token/mod.rs:
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/token/signed.rs:
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/jwt-0.16.0/src/token/verified.rs:

@@ -20,7 +20,7 @@ pub struct Session {}
 impl Session {
     pub fn temp(&self) {}
     pub fn login() -> Result<(), Box<dyn Error>> {
-        let mut token = include_str!("./key");
+        let mut token = include_str!("./service_account.json");
         let header = json!({
             "alg":"RS256",
             "typ": "JWT",
