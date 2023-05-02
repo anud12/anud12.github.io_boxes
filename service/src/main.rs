@@ -1,7 +1,8 @@
-use std::{error::Error, fmt::Debug};
+use std::{error::Error, fmt::Debug, ops::Add};
 
-use crate::login::Session;
+use api::{session::{SessionStruct, Session}, DriveApi};
 
+pub mod api;
 pub mod login;
 
 trait Printable {
@@ -14,12 +15,9 @@ impl<T: Debug> Printable for T {
     }
 }
 
-fn main2() -> Result<(), Box<dyn Error>> {
-    let _session = Box::new(Session {});
-    login::Session::login()
-}
-
 fn main3() {
+
+
     let client_id = "985280907031-ffvfnc8pi0ane99lso9dbl1m2l5oc9nn.apps.googleusercontent.com";
     let scope = "https://www.googleapis.com/auth/drive";
     let redirect_uri = "http://localhost:8080";
@@ -52,7 +50,8 @@ fn main3() {
     // let refresh_token = json["refresh_token"].as_str().unwrap();
 }
 
-fn main() {
+fn main4() {
+
     use jsonwebtoken::{encode, Algorithm, EncodingKey, Header};
     use serde_json::json;
     use std::time::{SystemTime, UNIX_EPOCH};
@@ -107,4 +106,34 @@ fn main() {
         let mime_type = file["mimeType"].as_str().unwrap();
         println!("ID: {}, Name: {}, MIME type: {}", id, name, mime_type);
     }
+}
+
+
+fn main() -> Result<(), Box<dyn Error>> {
+    // Load the service account JSON file
+    let sa_file = include_str!("service_account.json");
+    let sa_json: serde_json::Value = serde_json::from_str(&sa_file).unwrap();
+
+    // Get the private key and email from the JSON
+    let private_key = sa_json["private_key"].as_str().unwrap();
+    let client_email = sa_json["client_email"].as_str().unwrap();
+
+    let result = SessionStruct::new(client_email, private_key)?;
+    
+    result.print();
+
+
+    trait Addable {
+        fn my_add<T>(&self,t:T) where T:Add<u32> {
+           let a = t + 2;
+        }
+    }
+    impl <T>Addable for T where T:Add<u32> {
+
+    }
+    const a:u32 = 2;
+    a.my_add(3);
+
+    result.list_files().into_string().print();
+    Ok(())
 }
