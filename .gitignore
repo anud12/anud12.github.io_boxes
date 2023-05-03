@@ -5,3 +5,4 @@
 # Stores VSCode metadata
 .vscode-test
 **/.vscode
+**/service_account.json
