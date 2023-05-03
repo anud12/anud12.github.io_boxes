@@ -1,8 +1,7 @@
 use std::error::Error;
 
-use api::{files::file_api::FileApi, session_data::SessionData};
-use printable::Printable;
-
+use api::{google_session::GoogleSession, session::Session};
+use printable::{Printable, PrintableAnd};
 pub mod api;
 pub mod printable;
 fn main() -> Result<(), Box<dyn Error>> {
@@ -12,13 +11,12 @@ fn main() -> Result<(), Box<dyn Error>> {
     let private_key = sa_json["private_key"].as_str().unwrap();
     let client_email = sa_json["client_email"].as_str().unwrap();
 
-    let result = SessionData::new(client_email, private_key)?;
-    result
-        .file_find_by_name("first.json")?
-        .iter()
-        .for_each(|file| {
-            file.mime_type.print();
-        });
-
+    let fs = GoogleSession::new(client_email, private_key)?.into_file_query_api();
+    let boxes_trash = fs
+        .find_one_by_name("boxes_trash")?
+        .print_pre_and("Boxes trash file: ");
+    let deleteMe = fs.find_one_by_name("deleteMe")?;
+    deleteMe.print_pre_and("DeleteMe file: ");
+    deleteMe.move_to(&boxes_trash)?;
     Ok(())
 }

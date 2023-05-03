@@ -1,58 +1,81 @@
+use serde::{Deserialize, Serialize};
+use serde_json::json;
 use ureq::Request;
 
-use crate::api::session::Session;
+use crate::{
+    api::session::{self, SessionData},
+    printable::PrintableAnd,
+};
 
-use super::file_data::FileData;
+use super::file__query_api::FILE_API_URL;
 
-const URL: &str = "https://www.googleapis.com/drive/v3/files";
-
-fn prepare_request(token: String) -> Request {
-    ureq::get(URL)
-        .query("fields", "files(id,name,mimeType, parents)") // change this to the fields you need
-        .set("Authorization", &format!("Bearer {}", token))
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub enum FileDataMimeType {
+    JSON,
+    Folder,
+    Unknown(String),
 }
 
-pub trait FileApi: Session {
-    fn file_api_list(&self) -> Result<Vec<FileData>, Box<dyn std::error::Error>> {
-        let response = prepare_request(self.get_token()).call()?;
-        let body = response.into_json::<serde_json::Value>()?;
-        let files_string = match body.get("files") {
-            Some(value) => value.to_string(),
-            None => return Err(format!("files value does not exist on body {:?}", body).into()),
-        };
-        let files_json: Vec<FileData> = serde_json::from_str(&files_string)?;
-        Ok(files_json)
+fn deserialize_file_data_mime_type<'de, D>(deserializer: D) -> Result<FileDataMimeType, D::Error>
+where
+    D: serde::Deserializer<'de>,
+{
+    let s = String::deserialize(deserializer)?;
+    match s.as_str() {
+        "application/json" => Ok(FileDataMimeType::JSON),
+        "application/vnd.google-apps.folder" => Ok(FileDataMimeType::Folder),
+        _ => Err(serde::de::Error::custom(format!(
+            "unknown mime type: {}",
+            s
+        ))),
     }
+}
 
-    fn file_find_by_name<T: Into<String>>(
-        &self,
-        name: T,
-    ) -> Result<Vec<FileData>, Box<dyn std::error::Error>> {
-        let response = prepare_request(self.get_token())
-            .query("q", format!("name='{}'", name.into()).as_str())
-            .call()?;
-        let body = response.into_json::<serde_json::Value>()?;
-        let files_string = match body.get("files") {
-            Some(value) => value.to_string(),
-            None => return Err(format!("files value does not exist on body {:?}", body).into()),
-        };
-        let files_json: Vec<FileData> = serde_json::from_str(&files_string)?;
-        Ok(files_json)
-    }
-
-    fn file_find_one_by_name<T: Into<String>>(
-        &self,
-        name: T,
-    ) -> Result<FileData, Box<dyn std::error::Error>> {
-        let files_json = self.file_find_by_name(name)?;
-        match files_json.len() {
-            1 => {
-                let element = files_json.get(0).unwrap();
-                return Ok(element.clone());
-            }
-            0 => Err("No file found".into()),
-            _ => Err("Multiple files found".into()),
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct FileData {
+    id: String,
+    name: String,
+    #[serde(
+        alias = "mimeType",
+        deserialize_with = "deserialize_file_data_mime_type"
+    )]
+    mime_type: FileDataMimeType,
+    permissions: serde_json::Value,
+    parents: Option<Vec<String>>,
+}
+#[derive(Debug, Clone)]
+pub struct FileApi {
+    session_data: SessionData,
+    file_data: FileData,
+}
+impl FileApi {
+    pub fn new(session_data: SessionData, file_data: &FileData) -> FileApi {
+        FileApi {
+            session_data,
+            file_data: file_data.clone(),
         }
     }
+    pub fn move_to(&self, file: &FileApi) -> Result<(), Box<dyn std::error::Error>> {
+        match &self.file_data.parents {
+            None => return Err("No parents found".into()),
+            Some(parents) => {
+                ureq::patch(
+                    format!(
+                        "https://www.googleapis.com/upload/drive/v3/files/{}?removeParents={}&addParents={}",
+                        self.file_data.id,
+                        parents.get(0).unwrap(),
+                        file.file_data.id,
+                    )
+                    .as_str(),
+                )
+                .set(
+                    "Authorization",
+                    &format!("Bearer {}", self.session_data.get_token()),
+                )
+                .call()?;
+            }
+        }
+
+        Ok(())
+    }
 }
-impl<T: Session> FileApi for T {}

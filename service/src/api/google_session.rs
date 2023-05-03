@@ -1,24 +1,22 @@
+use super::session::{Session, SessionData};
+use jsonwebtoken::{encode, Algorithm, EncodingKey, Header};
+use serde_json::json;
 use std::{
     error::Error,
     time::{SystemTime, UNIX_EPOCH},
 };
 
-use jsonwebtoken::{encode, Algorithm, EncodingKey, Header};
-use serde_json::json;
-
-use super::session::Session;
-
 #[derive(Debug)]
-pub struct SessionData {
-    pub token: String,
-    pub expiration_unix_seconds: u64,
+pub struct GoogleSession {
+    token: String,
+    expiration_unix_seconds: u64,
 }
 
-impl SessionData {
-    pub fn new<T: Into<String>>(
+impl Session<GoogleSession> for GoogleSession {
+    fn new<T: Into<String>>(
         client_email: T,
         private_key: T,
-    ) -> Result<SessionData, Box<dyn Error>> {
+    ) -> Result<GoogleSession, Box<dyn Error>> {
         let now = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .unwrap()
@@ -45,15 +43,16 @@ impl SessionData {
             Some(value) => value,
             None => return Err("Access token is empty".into()),
         };
-        Ok(SessionData {
+        Ok(GoogleSession {
             token: access_token.to_string(),
             expiration_unix_seconds,
         })
     }
-}
 
-impl Session for SessionData {
-    fn get_token(&self) -> String {
-        self.token.clone()
+    fn into_session(&self) -> SessionData {
+        SessionData {
+            token: self.token.clone(),
+            expiration_unix_seconds: self.expiration_unix_seconds,
+        }
     }
 }
