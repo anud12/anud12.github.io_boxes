@@ -1,13 +1,7 @@
+use super::file_query_api::{FileQueryTrailt, FILE_API_URL};
+use crate::api::session::SessionData;
 use serde::{Deserialize, Serialize};
-use serde_json::json;
 use ureq::Request;
-
-use crate::{
-    api::session::{self, SessionData},
-    printable::PrintableAnd,
-};
-
-use super::file__query_api::FILE_API_URL;
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub enum FileDataMimeType {
@@ -77,5 +71,83 @@ impl FileApi {
         }
 
         Ok(())
+    }
+    pub fn download_body(&self) -> Result<serde_json::Value, Box<dyn std::error::Error>> {
+        let response: serde_json::Value = ureq::get(
+            format!(
+                "https://www.googleapis.com/drive/v3/files/{}?alt=media",
+                self.file_data.id,
+            )
+            .as_str(),
+        )
+        .set(
+            "Authorization",
+            &format!("Bearer {}", self.session_data.get_token()),
+        )
+        .call()?
+        .into_json::<serde_json::Value>()?;
+
+        Ok(response)
+    }
+}
+
+fn prepare_request(token: String) -> Request {
+    ureq::get(FILE_API_URL)
+        .query("fields", "files(id,name, mimeType, parents, permissions)") // change this to the fields you need
+        .set("Authorization", &format!("Bearer {}", token))
+}
+impl Into<SessionData> for FileApi {
+    fn into(self) -> SessionData {
+        self.session_data
+    }
+}
+
+impl FileQueryTrailt for FileApi {
+    fn list_all(&self) -> Result<Vec<FileApi>, Box<dyn std::error::Error>> {
+        let session: SessionData = self.clone().into();
+
+        let response = prepare_request(session.get_token())
+            .query("q", format!("'{}' in parents", self.file_data.id).as_str())
+            .call()?;
+        let body = response.into_json::<serde_json::Value>()?;
+        let files_string = match body.get("files") {
+            Some(value) => value.to_string(),
+            None => return Err(format!("files value does not exist on body {:?}", body).into()),
+        };
+        let file_list: Vec<FileData> = serde_json::from_str(&files_string)?;
+        let file_list = file_list
+            .iter()
+            .map(|file| FileApi::new(session.clone(), file))
+            .collect();
+        Ok(file_list)
+    }
+
+    fn find_by_name<T: Into<String>>(
+        &self,
+        name: T,
+    ) -> Result<Vec<FileApi>, Box<dyn std::error::Error>> {
+        let session: SessionData = self.clone().into();
+        let response = prepare_request(session.get_token())
+            .query(
+                "q",
+                format!(
+                    "'{}' in parents and name='{}'",
+                    self.file_data.id,
+                    name.into()
+                )
+                .as_str(),
+            )
+            .call()?;
+        let body = response.into_json::<serde_json::Value>()?;
+        let files_string = match body.get("files") {
+            Some(value) => value.to_string(),
+            None => return Err(format!("files value does not exist on body {:?}", body).into()),
+        };
+        let file_list: Vec<FileData> = serde_json::from_str(&files_string)?;
+        let file_list = file_list
+            .iter()
+            .map(|file| FileApi::new(session.clone(), file))
+            .collect();
+        Ok(file_list)
     }
 }

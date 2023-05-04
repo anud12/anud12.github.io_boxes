@@ -1,4 +1,4 @@
-use super::files::file__query_api::FileQueryApi;
+use super::files::file_query_api::FileQueryApi;
 
 pub trait Session<SessionDataType = SessionData> {
     fn new<T: Into<String>>(
