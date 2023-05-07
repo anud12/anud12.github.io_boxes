@@ -92,6 +92,21 @@ impl FileMetadata for GoogleDriveFile {
 
         Ok(response)
     }
+
+    fn get_body_string(&self) -> Result<String, Box<dyn Error>> {
+        let response: String = ureq::get(
+            format!(
+                "https://www.googleapis.com/drive/v3/files/{}?alt=media",
+                self.file_data.id,
+            )
+            .as_str(),
+        )
+        .set("Authorization", &format!("Bearer {}", self.session.token))
+        .call()?
+        .into_string()?;
+
+        Ok(response)
+    }
 }
 impl FolderQuery<GoogleDriveFile> for GoogleDriveFile {
     fn query(
