@@ -1,4 +1,3 @@
-use super::session::{Session, SessionData};
 use jsonwebtoken::{encode, Algorithm, EncodingKey, Header};
 use serde_json::json;
 use std::{
@@ -6,14 +5,16 @@ use std::{
     time::{SystemTime, UNIX_EPOCH},
 };
 
-#[derive(Debug)]
+use super::google_drive::GoogleDrive;
+
+#[derive(Debug, Clone)]
 pub struct GoogleSession {
-    token: String,
-    expiration_unix_seconds: u64,
+    pub token: String,
+    pub expiration_unix_seconds: u64,
 }
 
-impl Session<GoogleSession> for GoogleSession {
-    fn new<T: Into<String>>(
+impl GoogleSession {
+    pub fn new<T: Into<String>>(
         client_email: T,
         private_key: T,
     ) -> Result<GoogleSession, Box<dyn Error>> {
@@ -48,11 +49,7 @@ impl Session<GoogleSession> for GoogleSession {
             expiration_unix_seconds,
         })
     }
-
-    fn into_session(&self) -> SessionData {
-        SessionData {
-            token: self.token.clone(),
-            expiration_unix_seconds: self.expiration_unix_seconds,
-        }
+    pub fn drive(&self) -> GoogleDrive {
+        return GoogleDrive::new(self.clone());
     }
 }

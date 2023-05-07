@@ -1,11 +1,11 @@
 use std::error::Error;
 
-use api::{
-    files::file_query_api::FileQueryTrailt, google_session::GoogleSession, session::Session,
-};
-use printable::{Printable, PrintableAnd};
-pub mod api;
-pub mod printable;
+use api::file::{FileMetadata, FolderQuery, RootQuery};
+use implementation::google_session::GoogleSession;
+use printable::Printable;
+mod api;
+mod implementation;
+mod printable;
 fn main() -> Result<(), Box<dyn Error>> {
     // Load the service account JSON file
     let sa_file = include_str!("service_account.json");
@@ -13,24 +13,12 @@ fn main() -> Result<(), Box<dyn Error>> {
     let private_key = sa_json["private_key"].as_str().unwrap();
     let client_email = sa_json["client_email"].as_str().unwrap();
 
-    let global_fs = GoogleSession::new(client_email, private_key)?.into_file_query_api();
+    let global_fs = GoogleSession::new(client_email, private_key)?.drive();
     let boxes = global_fs.find_one_by_name("boxes")?;
-    let boxes_trash = global_fs
-        .find_one_by_name("boxes_trash")?
-        .print_pre_and("Boxes trash file: ");
-    // let deleteMe = fs.find_one_by_name("deleteMe")?;
-    // deleteMe.print_pre_and("DeleteMe file: ");
-    // deleteMe.move_to(&boxes_trash)?;
+    let boxes_trash = global_fs.find_one_by_name("boxes_trash")?;
+    let first = boxes.find_by_name("first.json")?.remove(0);
 
-    // fs.find_one_by_name("boxes")?
-    //     .find_one_by_name("deleteMe")?
-    //     .move_to(&boxes_trash)?;
-    let first = boxes
-        .find_by_name("first.json")?
-        .get(0)
-        .unwrap()
-        .download_body()?;
-
-    first.print();
+    first.get_body_json().print();
+    global_fs.find_all()?.print();
     Ok(())
 }
