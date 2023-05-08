@@ -23,12 +23,12 @@ jobs:
       working-directory: ./service
       run: cargo build
     - name: Copy Executable
-      working-directory: ./service
-      run: mv ./target/debug/service ../service
+      working-directory:
+      run: mv ./service/target/debug/service ./exe
     - name: Commit build
       uses: EndBug/add-and-commit@v9
       with:
-        add: ./service
+        add: ./exe
         message: "build-commit"
         default_author: github_actions
 
