@@ -22,3 +22,7 @@ jobs:
     - name: Build
       working-directory: ./service
       run: cargo build
+    - name: Copy Executable
+      working-directory: ./service
+      run: mv ./target/debug/service ../service
+
