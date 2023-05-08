@@ -25,4 +25,9 @@ jobs:
     - name: Copy Executable
       working-directory: ./service
       run: mv ./target/debug/service ../service
+    - name: Commit build
+    - uses: EndBug/add-and-commit@v9
+      with:
+        add: ./service
+        commit: "build-commit"
 
