@@ -1,8 +1,8 @@
-
 # Dependency directories
 **/target
-
 # Stores VSCode metadata
 .vscode-test
 **/.vscode
 **/service_account.json
+
+./idea

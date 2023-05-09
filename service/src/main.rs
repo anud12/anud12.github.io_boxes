@@ -1,11 +1,5 @@
 use std::error::Error;
-
-use api::file::{FileMetadata, FolderQuery, RootQuery};
-use implementation::google_session::GoogleSession;
-use printable::Printable;
-mod api;
-mod implementation;
-mod printable;
+use job_base::*;
 fn main() -> Result<(), Box<dyn Error>> {
     // Load the service account JSON file
     // let sa_file = include_str!("service_account.json");
@@ -18,8 +12,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     let boxes = global_fs.find_one_by_name("boxes")?;
     let boxes_trash = global_fs.find_one_by_name("boxes_trash")?;
     let first = boxes.find_by_name("first.json")?.remove(0);
-
-    first.get_body_json().print();
-    global_fs.find_all()?.print();
+    //
+    // first.get_body_json().print();
+    // global_fs.find_all()?.print();
     Ok(())
 }
