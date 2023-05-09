@@ -5,4 +5,4 @@
 **/.vscode
 **/service_account.json
 
-./idea
+./.idea

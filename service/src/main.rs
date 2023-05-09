@@ -1,5 +1,5 @@
 use std::error::Error;
-use job_base::*;
+pub use job_base::{GoogleSession, RootQuery, FolderQuery, FileMetadata};
 fn main() -> Result<(), Box<dyn Error>> {
     // Load the service account JSON file
     // let sa_file = include_str!("service_account.json");

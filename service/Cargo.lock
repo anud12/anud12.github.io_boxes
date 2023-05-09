@@ -180,7 +180,7 @@ checksum = "453ad9f582a441959e5f0d088b02ce04cfe8d51a8eaf077f12ac6d3e94164ca6"
 [[package]]
 name = "job_base"
 version = "0.1.0"
-source = "git+https://github.com/anud12/anud12.github.io_job_base.git?branch=main#f2c9956a96a796c513e2eec0d0d1133075d85497"
+source = "git+https://github.com/anud12/anud12.github.io_job_base.git?branch=main#1d2fb75775ac3f49468b681dd6da1268de485f3a"
 dependencies = [
  "jsonwebtoken",
  "rsa",
