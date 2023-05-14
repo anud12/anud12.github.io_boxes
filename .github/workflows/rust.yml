@@ -19,6 +19,9 @@ jobs:
       with:
         workspaces: ./service
 
+    - name: Update dependencies
+      working-directory: ./service
+      run: cargo update
     - name: Build
       working-directory: ./service
       run: cargo build
