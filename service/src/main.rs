@@ -4,7 +4,6 @@ use std::error::Error;
 fn main() -> Result<(), Box<dyn Error>> {
     let global_fs = GoogleSession::new()?.into_drive();
     let boxes = global_fs.find_one_by_name("boxes")?;
-    boxes.find_all().print("All files in Boxes:");
     let boxes_trash = global_fs.find_one_by_name("boxes_trash")?;
     let first = boxes.find_by_name("first.json")?.remove(0);
     Ok(())
