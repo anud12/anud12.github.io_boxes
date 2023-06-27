@@ -6,7 +6,7 @@ module.exports = (
     <Page title="anud12.github.io">
         <Form folderId="1DwTbUSWf5kzNq84Kc08bJ9Wyw9ijfBuS">
             <Input name="name" type="text" />
-            <Input name="image" type="file" accept="image/*;capture=camera" />
+            <Input name="image" type="file" accept="image/*" capture="camera" />
             <Input name="months" type="number" />
         </Form>
     </Page>
