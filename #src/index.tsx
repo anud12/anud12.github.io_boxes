@@ -7,7 +7,7 @@ module.exports = (
         <Form folderId="1DwTbUSWf5kzNq84Kc08bJ9Wyw9ijfBuS">
             <Input name="name" type="text" />
             <Input name="image" type="file" accept="image/*" />
-            <Input name="duration" type="number" />
+            <Input name="months" type="number" />
         </Form>
     </Page>
 )
