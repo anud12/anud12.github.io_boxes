@@ -17,17 +17,17 @@ jobs:
 
     - uses: Swatinem/rust-cache@v2
       with:
-        workspaces: ./service
+        workspaces: ./#job
 
     - name: Update dependencies
-      working-directory: ./service
+      working-directory: ./#job
       run: cargo update
     - name: Build
-      working-directory: ./service
+      working-directory: ./#job
       run: cargo build
     - name: Copy Executable
       working-directory:
-      run: mv ./service/target/debug/service ./exe
+      run: mv ./#job/target/debug/job ./exe
     - name: Commit build
       uses: EndBug/add-and-commit@v9
       with:
