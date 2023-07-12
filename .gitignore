@@ -6,5 +6,9 @@
 **/service_account.json
 node_modules/
 ./.idea
-\#job/src/private_key
-\#job/src/client_email
+
+\#job/private_key
+\#job/client_email
+
+\#job/node_modules
+\#job/package-lock.json
