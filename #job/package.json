@@ -5,14 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "anud12.github.io_job_base": "github:anud12/anud12.github.io_job_base"
+    "anud12.github.io_job_base": "github:anud12/anud12.github.io_job_base",
+    "typescript": "^5.1.6"
   },
   "devDependencies": {
-    "@types/node": "^20.4.1"
+    "@types/node": "^20.4.1",
+    "jest": "^29.6.1"
   }
 }
