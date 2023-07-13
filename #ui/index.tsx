@@ -1,7 +1,6 @@
 import React from "react";
-import { Page } from "anud12.github.io_ui_base/src/components/Page"
-import { Table } from "anud12.github.io_ui_base/src/components/Table"
-import { Link } from "anud12.github.io_ui_base/src/components/atoms/Link";
+import { Link, Page, Table, } from "anud12.github.io_ui_base";
+
 module.exports = (
     <Page title="Boxes">
         <Link href={"add"}>Add</Link>
