@@ -10,7 +10,6 @@ node_modules/
 \#job/private_key
 \#job/client_email
 
-\#job/node_modules
 \#job/package-lock.json
 
 
