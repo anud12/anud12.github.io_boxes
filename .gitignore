@@ -12,3 +12,7 @@ node_modules/
 
 \#job/node_modules
 \#job/package-lock.json
+
+
+\#ui/node_modules
+\#ui/package-lock.json
