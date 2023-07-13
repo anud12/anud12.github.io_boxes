@@ -4,7 +4,6 @@
 .vscode-test
 **/.vscode
 **/service_account.json
-node_modules/
 ./.idea
 
 \#job/private_key
