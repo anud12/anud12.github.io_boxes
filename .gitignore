@@ -1,16 +1,9 @@
-# Dependency directories
-**/target
 # Stores VSCode metadata
 .vscode-test
 **/.vscode
-**/service_account.json
 /.idea
 
-\#job/private_key
-\#job/client_email
-
-\#job/package-lock.json
-
-
-\#ui/node_modules
+\#ui/private_key
+\#ui/client_email
 \#ui/package-lock.json
+\#ui/node_modules/.package-lock.json

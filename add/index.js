@@ -32,7 +32,7 @@ var mainComponent = (() => {
     }
   });
 
-  // node_modules/anud12.github.io_ui_base/lib/index.js
+  // node_modules/anud12.github.io_ui_base/lib/job.js
   var require_lib = __commonJS({
     "node_modules/anud12.github.io_ui_base/lib/index.js"(exports, module) {
       var __create2 = Object.create;
