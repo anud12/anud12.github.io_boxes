@@ -2,8 +2,8 @@
 .vscode-test
 **/.vscode
 /.idea
-
-\#ui/private_key
-\#ui/client_email
-\#ui/package-lock.json
-\#ui/node_modules/.package-lock.json
+\#/node_modules/@types**
+\#/private_key
+\#/client_email
+\#/package-lock.json
+\#/node_modules/.package-lock.json
