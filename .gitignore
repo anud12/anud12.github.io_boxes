@@ -1,9 +1,11 @@
 # Stores VSCode metadata
 .vscode-test
-**/.vscode
+/.vscode
 /.idea
-\#/node_modules/@types**
+!\#/node_modules/@types/*
+\#/node_modules/
+
+
 \#/private_key
 \#/client_email
 \#/package-lock.json
-\#/node_modules/.package-lock.json
