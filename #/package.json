@@ -4,6 +4,7 @@
   "description": "",
   "main": "",
   "scripts": {
+    "job": "node job.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node ./build.js"
   },
