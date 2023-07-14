@@ -2,8 +2,11 @@
 .vscode-test
 /.vscode
 /.idea
-!\#/node_modules/@types/*
-\#/node_modules/
+
+
+\#/node_modules/*
+!\#/node_modules/@types/
+!\#/node_modules/anud12.github.io_job_base/
 
 
 \#/private_key
