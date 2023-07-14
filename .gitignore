@@ -4,7 +4,7 @@
 .vscode-test
 **/.vscode
 **/service_account.json
-./.idea
+/.idea
 
 \#job/private_key
 \#job/client_email
