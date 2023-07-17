@@ -6,6 +6,7 @@
   "scripts": {
     "job": "node job.js",
     "test": "npx jest",
+    "build-job": "npx esbuild --bundle --platform=node --outdir=../ ./job.js",
     "build": "node ./build.js"
   },
   "author": "",
