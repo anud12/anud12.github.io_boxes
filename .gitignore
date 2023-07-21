@@ -5,8 +5,6 @@
 
 
 \#/node_modules/*
-
-
 \#/private_key
 \#/client_email
 \#/package-lock.json
