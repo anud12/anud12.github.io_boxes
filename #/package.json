@@ -4,9 +4,9 @@
   "description": "",
   "main": "",
   "scripts": {
-    "job": "node job.js",
+    "job": "node job.ts",
     "test": "npx jest",
-    "build-job": "npx esbuild --bundle --platform=node --outdir=../ ./job.js",
+    "build-job": "npx esbuild --bundle --platform=node --outdir=../ job.ts",
     "build": "node ./build.js"
   },
   "author": "",
