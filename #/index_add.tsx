@@ -1,6 +1,6 @@
 import React from "react";
-import {Form, Input, Page} from "anud12.github.io_ui_base";
-import {folderId} from "./index";
+import { Form, Input, Page } from "anud12.github.io_ui_base";
+import { folderId } from "./index";
 import newGoogleSession from "anud12.github.io_job_base";
 
 export const createFolderId = "11zqF7BKA-7hvcONuSmbU2RGHrxmLafNl";
@@ -9,9 +9,9 @@ type Data = Record<"name" | "image" | "months", any>
 export default (
   <Page title="Boxes Add">
     <Form folderId={createFolderId}>
-      <Input<Data> name="name" type="text"/>
-      <Input<Data> name="image" type="file" accept="image/*" capture="environment"/>
-      <Input<Data> name="months" type="number"/>
+      <Input<Data> name="name" type="text" />
+      <Input<Data> name="image" type="file" accept="image/*" capture="environment" />
+      <Input<Data> name="months" type="number" />
     </Form>
   </Page>
 );
